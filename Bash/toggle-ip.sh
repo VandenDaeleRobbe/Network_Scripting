@@ -11,6 +11,17 @@ config_path="/etc/network/interfaces"
 # --------------------
 cp $config_path ~/interfaces.back
 
+
+# --------------------
+# Check if interface exists
+# --------------------
+ip a | grep $interface
+if [[ $? -ne 0 ]]; then
+	echo "Interface does not exists!"
+	exit 1
+fi
+
+
 # --------------------
 # Check if current config is static or dynamic
 # --------------------
@@ -35,8 +46,8 @@ if [[ $is_dhcp -eq 0 ]]; then
 	# Add commands
 	echo "auto $interface" >> $config_path
 	echo "iface $interface inet static" >> $config_path	
-	echo "\taddress 192.168.1.5\24" >> $config_path
-	echo "\tgateway 192.168.1.1" >> $config_path
+	echo -e "\taddress 192.168.1.5/24" >> $config_path
+	echo -e "\tgateway 192.168.1.1" >> $config_path
 fi
 
 
