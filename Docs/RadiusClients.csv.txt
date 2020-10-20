@@ -1,4 +1,0 @@
-Name;Address;SharedSecret
-Client1;192.168.1.21;P@ssw0rd1
-Client2;192.168.1.22;P@ssw0rd2
-Client3;192.168.1.23;P@ssw0rd3
