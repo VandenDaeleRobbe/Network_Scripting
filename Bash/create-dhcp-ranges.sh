@@ -14,11 +14,14 @@ function usage {
 }
 
 function write_conf_file {
+    # Check if the subnet <network_addres> netmask <subnetmask> part is present
     grep -q "subnet $network_address netmask $subnetmask" $conf_file_path
+    # If not present, create it with the range
     if [[ $? -ne 0 ]]; then
 	echo -e "subnet $network_address netmask $subnetmask {" >> $conf_file_path
 	echo -e "range $range_start $range_stop;" >> $conf_file_path
 	echo -e "}" >> $conf_file_path
+    # If present only create the range
     else
 	sed -i "/^subnet $network_address netmask $subnetmask/a range $range_start $range_stop;" $conf_file_path
     fi
